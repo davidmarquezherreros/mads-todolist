@@ -56,7 +56,8 @@ public class UsuariosController extends Controller {
 
     @Transactional
     public Result detalleUsuario(String id) {
-        return status(Http.Status.NOT_IMPLEMENTED);
+        Logger.debug("Usuario: " + UsuarioDAO.find(id).toString());
+        return ok(DetalleUsuario.render(UsuariosService.findUsuario(id)));
     }
 
     @Transactional

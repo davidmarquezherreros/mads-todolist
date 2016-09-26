@@ -21,7 +21,11 @@ public class UsuariosController extends Controller {
     @Transactional(readOnly = true)
     // Devuelve una página con la lista de usuarios
     public Result listaUsuarios() {
-        return status(Http.Status.NOT_IMPLEMENTED);
+      // Obtenemos el mensaje flash guardado en la petición
+      // por el controller grabaUsuario
+      String mensaje = flash("grabaUsuario");
+      List<Usuario> usuarios = UsuariosService.findAllUsuarios();
+      return ok(listaUsuarios.render(usuarios, mensaje));
     }
 
     // Devuelve un formulario para crear un nuevo usuario
@@ -41,8 +45,8 @@ public class UsuariosController extends Controller {
         Usuario usuario = usuarioForm.get();
         Logger.debug("Usuario a grabar: " + usuario.toString());
         usuario = UsuariosService.grabaUsuario(usuario);
-        flash("grabaUsuario", "El usuario se ha grabado correctamente");
-        return ok();
+        flash("grabaUsuario", "El usuario se ha guardado correctamente");
+        return redirect(controllers.routes.UsuariosController.listaUsuarios());
     }
 
     @Transactional

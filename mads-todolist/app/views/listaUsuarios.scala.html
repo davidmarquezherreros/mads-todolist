@@ -23,6 +23,7 @@
           Usuario @usuario.id: @usuario.login
           <a onmouseover="" style="cursor: pointer;" onclick="del('@routes.UsuariosController.borraUsuario(usuario.id)')">
             <!--<span class="glyphicon glyphicon-trash" aria-hidden="true"></span> --> (Borrar)</a>
+            <a href="@routes.UsuariosController.detalleUsuario(usuario.id)">Detalle</a>
         </li>
       }
 

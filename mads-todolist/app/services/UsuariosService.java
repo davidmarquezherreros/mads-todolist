@@ -15,13 +15,12 @@ public class UsuariosService {
     }
 
     public static Usuario modificaUsuario(Usuario usuario) {
-      // ToDo
-      return usuario;
+      Logger.debug("Usuario: "+ UsuarioDAO.find(usuario.id));
+      return UsuarioDAO.update(UsuarioDAO.find(usuario.id));
     }
 
-    public static Usuario findUsuario(String id) {
-        // ToDo
-        return null;
+    public static Usuario findUsuario(String id){
+        return UsuarioDAO.find(id);
     }
 
     public static boolean deleteUsuario(String id) {

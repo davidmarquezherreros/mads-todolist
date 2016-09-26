@@ -1,0 +1,12 @@
+@(usuario: Usuario)
+
+@main("Detalle Usuario"){
+  <h1><em>@usuario.login</em></h1>
+  <hr/>
+  <h3><em>@usuario.nombre</em></h1>
+  <h3><em>@usuario.apellidos</em></h3>
+  <h3><em>@usuario.eMail</em></h3>
+  <h3><em>@usuario.fechaNacimiento</em></h3>
+
+  <a class="btn btn-primary" href="@routes.UsuariosController.listaUsuarios()">Volver</a></p>
+}

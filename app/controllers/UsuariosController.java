@@ -62,7 +62,11 @@ public class UsuariosController extends Controller {
 
     @Transactional
     public Result editaUsuario(String id) {
-        return status(Http.Status.NOT_IMPLEMENTED);
+        Form<Usuario> usuarioForm = formFactory.form(Usuario.class).bindFromRequest();
+        Logger.debug(usuarioForm.toString());
+        Usuario user = new Usuario();
+        
+        return ok(formModificacionUsuario.render(formFactory.form(Usuario.class),""));
     }
 
     @Transactional

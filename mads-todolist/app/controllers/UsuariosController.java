@@ -62,12 +62,12 @@ public class UsuariosController extends Controller {
 
     @Transactional
     public Result editaUsuario(String id) {
-        Form<Usuario> usuarioForm = formFactory.form(Usuario.class).bindFromRequest();
-        Logger.debug(usuarioForm.toString());
+        /*Form<Usuario> usuarioForm = formFactory.form(Usuario.class).bindFromRequest();
         Usuario user = new Usuario();
         user = UsuariosService.findUsuario(id);
         Form<Usuario> filledForm = usuarioForm.fill(user);
-        return ok(formModificacionUsuario.render(filledForm,""));
+        return ok(formModificacionUsuario.render(filledForm,""));*/
+        return ok();
     }
 
     @Transactional

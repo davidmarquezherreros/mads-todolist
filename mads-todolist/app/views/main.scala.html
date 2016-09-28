@@ -4,18 +4,23 @@
  * two arguments, a `String` for the title of the page and an `Html`
  * object to insert into the body of the page.
  *@
-@(title: String, scripts: Html = Html(""))(content: Html)
+ @(title: String, scripts: Html = Html(""))(content: Html)
 
-<!DOCTYPE html>
+ <!DOCTYPE html>
 
-<html lang="en">
-    <head>
-        <title>@title</title>
-    </head>
-    <body>
-        <div class="container">
-        @content
-    </div>
-    @scripts
-    </body>
-</html>
+ <html lang="en">
+     <head>
+         <title>@title</title>
+         <link href="@routes.Assets.versioned("bootstrap/css/bootstrap.min.css")" rel="stylesheet" media="screen">
+         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
+         <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
+     </head>
+     <body>
+         <div class="container">
+         @content
+     </div>
+     <script src="@routes.Assets.versioned("javascripts/jquery-1.11.3.min.js")" type="text/javascript"></script>
+     <script src="@routes.Assets.versioned("bootstrap/js/bootstrap.min.js")" type="text/javascript"></script>
+     @scripts
+     </body>
+ </html>

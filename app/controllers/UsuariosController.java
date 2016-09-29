@@ -120,6 +120,7 @@ public class UsuariosController extends Controller {
         }
         else{
           Logger.debug("El usuario no existe en la base de datos");
+          UsuariosService.grabaUsuario(usuario);
         }
       }
       return ok(formRegistroUsuario.render(usuarioForm,"El registro fue un exito"));

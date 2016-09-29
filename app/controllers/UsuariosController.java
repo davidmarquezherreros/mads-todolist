@@ -72,7 +72,9 @@ public class UsuariosController extends Controller {
 
     @Transactional
     public Result borraUsuario(String id) {
-        return status(Http.Status.NOT_IMPLEMENTED);
+        UsuariosService.deleteUsuario(id);
+        Logger.debug("Usuario a borrar: "+UsuariosService.findUsuario(id));
+        return redirect(controllers.routes.UsuariosController.listaUsuarios());
     }
 
 }

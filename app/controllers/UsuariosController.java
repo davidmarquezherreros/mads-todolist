@@ -51,7 +51,14 @@ public class UsuariosController extends Controller {
 
     @Transactional
     public Result grabaUsuarioModificado() {
-        return status(Http.Status.NOT_IMPLEMENTED);
+      Form<Usuario> usuarioForm = formFactory.form(Usuario.class).bindFromRequest();
+      if (usuarioForm.hasErrors()) {
+          return badRequest(formCreacionUsuario.render(usuarioForm, "Hay errores en el formulario"));
+      }
+      Usuario usuario = usuarioForm.get();
+      usuario = UsuariosService.modificaUsuario(usuario);
+      flash("grabaUsuario", "El usuario se ha modificado correctamente");
+      return redirect(controllers.routes.UsuariosController.listaUsuarios());
     }
 
     @Transactional

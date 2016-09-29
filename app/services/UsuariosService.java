@@ -37,4 +37,8 @@ public class UsuariosService {
         Logger.debug("Numero de usuarios: " + lista.size());
         return lista;
     }
+
+    public static List<Usuario> findUsuarioLogin(String login){
+      return UsuarioDAO.findUsuarioLogin(login);
+    }
 }

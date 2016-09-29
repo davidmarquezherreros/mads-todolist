@@ -89,4 +89,39 @@ public class UsuariosController extends Controller {
     public Result RegistroNuevoUsuario(){
       return ok(formRegistroUsuario.render(formFactory.form(Usuario.class),""));
     }
+    @Transactional
+    public Result grabaRegistroNuevoUsuario(){
+      Form<Usuario> usuarioForm = formFactory.form(Usuario.class).bindFromRequest();
+      if (usuarioForm.hasErrors()) {
+          return badRequest(formRegistroUsuario.render(usuarioForm, "Hay errores en el formulario"));
+      }
+      Usuario usuario = usuarioForm.get();
+      int expresion = usuario.password.compareTo(usuario.repetirpassword);
+      boolean passwordOK = true;
+      if(expresion != 0){
+        passwordOK = false;
+      }
+      if(passwordOK == false){
+        return badRequest(formRegistroUsuario.render(usuarioForm, "Las contraseñas no coinciden"));
+      }
+      else{
+        List<Usuario> userDB = UsuariosService.findUsuarioLogin(usuario.login);
+        Logger.debug(userDB.toString());
+        if(userDB.size()>0){
+          Logger.debug("El usuario ya existe en la base de datos");
+          Usuario aux = userDB.get(0);
+          if(aux.password == null){
+            aux.password = usuario.password;
+            UsuariosService.modificaUsuario(aux);
+          }
+          else{
+            return badRequest(formRegistroUsuario.render(usuarioForm, "Ya existe este usuario contacte con el administrador para mas informacion"));
+          }
+        }
+        else{
+          Logger.debug("El usuario no existe en la base de datos");
+        }
+      }
+      return ok(formRegistroUsuario.render(usuarioForm,"El registro fue un exito"));
+    }
 }

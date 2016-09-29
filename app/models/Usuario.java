@@ -16,6 +16,7 @@ public class Usuario {
     @Constraints.Required
     public String login;
     public String password;
+    public String repetirpassword;
     public String nombre;
     public String apellidos;
     public String eMail;

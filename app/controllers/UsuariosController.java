@@ -84,4 +84,9 @@ public class UsuariosController extends Controller {
         return redirect(controllers.routes.UsuariosController.listaUsuarios());
     }
 
+    // Funcionalidades extra
+    @Transactional
+    public Result RegistroNuevoUsuario(){
+      return ok(formRegistroUsuario.render(formFactory.form(Usuario.class),""));
+    }
 }

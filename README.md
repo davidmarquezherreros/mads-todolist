@@ -19,16 +19,14 @@ El tablero con los tickets se puede encontrar [aqui](https://trello.com/b/YeGc58
   Para añadir Bootstrap, me fui a la pagina de [descarga](http://getbootstrap.com/getting-started/#download) y descargue la primera opcion.
   Una vez que estaba descargada me fui a mi proyecto de play y copie la carpeta en la carpeta "public".
 #### **TIC-3 Página crear usuario**
-  Para hacer la pagina crear usuario hice lo siguiente:
-    1. Cree el formulario [formCreacionUsuario.scala.html](https://github.com/davidmarquezherreros/mads-todolist/blob/master/app/views/formCreacionUsuario.scala.html), este formulario contiene los campos necesarios para crear un usuario.
-    
+   1. Cree el formulario [formCreacionUsuario.scala.html](https://github.com/davidmarquezherreros/mads-todolist/blob/master/app/views/formCreacionUsuario.scala.html), este formulario contiene los campos necesarios para crear un usuario.
+   
     2. Puse una nueva ruta en el fichero /conf/routes para los metodos GET y POST
     3. Hice las funciones que devuelven el formulario de creacion y la funcion que controla el evento post.
     4. Cree las siguientes clases: models/UsuarioDAO.java , models/Usuario.java y services/UsuarioService.java
 #### **TIC-4 Página listado de usuarios**
   En este ticket se creo una pagina para listar todos los usuarios en la aplicacion para hacer esta pagina segui el ejempo del codigo de ayuda.
 #### **TIC-5 Página detalle de un usuario**
-  Para hacer la pagina detalle usuario hice lo siguiente:
     1. Cree una nueva pagina [DetalleUsuario.scala.html](https://github.com/davidmarquezherreros/mads-todolist/blob/master/app/views/DetalleUsuario.scala.html)
     
     2. Puse una nueva ruta en el fichero /conf/routes para el metodo GET.

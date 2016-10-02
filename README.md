@@ -30,7 +30,7 @@ El tablero con los tickets se puede encontrar [aqui](https://trello.com/b/YeGc58
     1. Cree una nueva pagina "DetalleUsuario.scala.html"
     2. Puse una nueva ruta en el fichero /conf/routes para el metodo GET.
     3. Hice la funcion que devuelve los datos de un usuario a partir de su 'id'.
-    4. Agregue la funcion 'findUsuario' en services/UsuarioService.java
+    4. Agregue la funcion "findUsuario" en services/UsuarioService.java
 #### **TIC-6 Página editar un usuario**
   Para hacer la pagina editar usuario hice lo siguiente:
     1. Cree un nuevo formulario "formModificacionUsuario.scala.html", este formulario contiene los datos del usuario que se quiere modificar.

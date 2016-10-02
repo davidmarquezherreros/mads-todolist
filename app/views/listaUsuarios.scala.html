@@ -16,18 +16,29 @@
 @main("Listado de usuarios", scripts) {
 
     <h2> Listado de usuarios </h2>
-
-    <ul>
-    @for(usuario <- usuarios) {
-        <li>
-          Usuario @usuario.id: @usuario.login
-          <a onmouseover="" style="cursor: pointer;" onclick="del('@routes.UsuariosController.borraUsuario(usuario.id)')">
-            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>(Borrar)</a>
-            <a href="@routes.UsuariosController.detalleUsuario(usuario.id)">Detalle</a>
-        </li>
-      }
-
-    </ul>
+    <table class="table table-condensed">
+      <tr>
+        <th>Id</th>
+        <th>Login</th>
+        <th>Nombre</th>
+        <th>Apellidos</th>
+        <th>Accion</th>
+      </tr>
+      @for(usuario <- usuarios) {
+          <tr>
+            <td>@usuario.id</td>
+            <td>@usuario.login</td>
+            <td>@usuario.nombre</td>
+            <td>@usuario.apellidos</td>
+            <td>
+              <a onmouseover="" style="cursor: pointer;" onclick="del('@routes.UsuariosController.borraUsuario(usuario.id)')">
+                          <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>Borrar</a>
+                          <a href="@routes.UsuariosController.detalleUsuario(usuario.id)"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true">Detalle</a>
+                            <a href="@routes.UsuariosController.editaUsuario(usuario.id)"><span class="glyphicon glyphicon-pencil" aria-hidden="true">Editar</a></p>
+            </td>
+          </tr>
+        }
+  </table>
      <a class="btn btn-primary" href="@routes.UsuariosController.formularioNuevoUsuario()">Crear un nuevo usuario</a></p>
     @if(mensaje != null) {
         <div class="alert alert-success">

@@ -40,16 +40,22 @@ El tablero con los tickets se puede encontrar [aqui](https://trello.com/b/YeGc58
     1. Cree un nuevo formulario formModificacionUsuario.scala.html, este formulario contiene los datos del usuario que se quiere modificar.
     2. Para rellenar el formulario segui el tutorial de play utilizando el metodo fill:
     
-              ```
               Form<Usuario> usuarioForm = formFactory.form(Usuario.class).bindFromRequest();
               Usuario user = new Usuario();
               user = UsuariosService.findUsuario(id);
               Form<Usuario> filledForm = usuarioForm.fill(user);
               return ok(formModificacionUsuario.render(filledForm,""));
-              ```
+              
   3. Cuando ya tenemos los datos del usuario a modificar se llama a la funcion grabaUsuarioModificado que actualiza los datos.
   
 #### **TIC-7 Página borrar un usuario**
+  Para hacer la pagina borrar un usuario hice lo siguiente:
+  
+    1. Me descargue y añadide el fichero [jquery.jmin.js](https://github.com/davidmarquezherreros/mads-todolist/blob/master/public/javascripts/jquery.min.js), para que funcionase el script de borrado del codigo de ayuda.
+
+    2. Modifique el fichero /services/UsuariosService.java para que la funcion deleteUsuario llamase a UsuarioDAO 
+    y devolviese verdadero si habia borrado el usuario y falso si no.
+    
 #### **TIC-8 Breve documentacion del repositorio**
 #### **TIC-9 Pantalla registro de usuarios**
 #### **TIC-10 Pantalla login usuarios**

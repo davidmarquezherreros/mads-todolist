@@ -51,12 +51,13 @@ El tablero con los tickets se puede encontrar [aqui](https://trello.com/b/YeGc58
 #### **TIC-7 Página borrar un usuario**
   Para hacer la pagina borrar un usuario hice lo siguiente:
   
-    1. Me descargue y añadide el fichero [jquery.jmin.js](https://github.com/davidmarquezherreros/mads-todolist/blob/master/public/javascripts/jquery.min.js), para que funcionase el script de borrado del codigo de ayuda.
-
+    1. Me descargue y añadide el fichero jquery.jmin.js, para que funcionase el script de borrado del codigo de ayuda.
     2. Modifique el fichero /services/UsuariosService.java para que la funcion deleteUsuario llamase a UsuarioDAO 
     y devolviese verdadero si habia borrado el usuario y falso si no.
     
 #### **TIC-8 Breve documentacion del repositorio**
+  Modifique el archivo [README.md](https://github.com/davidmarquezherreros/mads-todolist/blob/master/README.md)
 #### **TIC-9 Pantalla registro de usuarios**
+
 #### **TIC-10 Pantalla login usuarios**
 #### **TIC-11 Mejoras en la apariencia**

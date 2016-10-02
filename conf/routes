@@ -25,9 +25,13 @@ GET     /usuarios/:id               controllers.UsuariosController.detalleUsuari
 GET     /usuarios/:id/editar        controllers.UsuariosController.editaUsuario(id: String)
 DELETE  /usuarios/:id               controllers.UsuariosController.borraUsuario(id: String)
 
-# TIC-11
+# TIC-9
 GET  /registro             controllers.UsuariosController.RegistroNuevoUsuario()
 POST  /registro             controllers.UsuariosController.grabaRegistroNuevoUsuario()
+
+# TIC-10
+GET  /login             controllers.UsuariosController.LoginUsuario()
+POST  /login             controllers.UsuariosController.checkLoginUsuario()
 
 # Map static resources from the /public folder to the /assets URL path
 GET /assets/*file controllers.Assets.versioned(path="/public", file: Asset)

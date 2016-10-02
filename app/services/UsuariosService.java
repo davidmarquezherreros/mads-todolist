@@ -41,4 +41,7 @@ public class UsuariosService {
     public static List<Usuario> findUsuarioLogin(String login){
       return UsuarioDAO.findUsuarioLogin(login);
     }
+    public static List<Usuario> Login(String login,String password){
+      return UsuarioDAO.Login(login,password);
+    }
 }

@@ -125,4 +125,27 @@ public class UsuariosController extends Controller {
       }
       return ok(formRegistroUsuario.render(usuarioForm,"El registro fue un exito"));
     }
+    @Transactional
+    public Result LoginUsuario(){
+      return ok(formLoginUsuario.render(formFactory.form(Usuario.class),""));
+    }
+    @Transactional
+    public Result checkLoginUsuario(){
+      Form<Usuario> usuarioForm = formFactory.form(Usuario.class).bindFromRequest();
+      if (usuarioForm.hasErrors()) {
+          return badRequest(formLoginUsuario.render(usuarioForm, "Hay errores en el formulario"));
+      }
+      Usuario usuario = usuarioForm.get();
+      if(usuario.password.isEmpty()==true){
+        return badRequest(formLoginUsuario.render(usuarioForm, "Introduzca la contraseña, si no tiene vaya a registro"));
+      }
+      List<Usuario> userDB = UsuariosService.Login(usuario.login,usuario.password);
+      Logger.debug(userDB.toString());
+      if(userDB.size()>0){
+        return ok(saludo.render(usuario.login));
+      }
+      else{
+        return badRequest(formLoginUsuario.render(usuarioForm, "Error en la contraseña / login"));
+      }
+    }
 }

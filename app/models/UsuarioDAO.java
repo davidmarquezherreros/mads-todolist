@@ -42,4 +42,8 @@ public class UsuarioDAO {
       TypedQuery<Usuario> query = JPA.em().createQuery("select u from Usuario u WHERE u.login='"+LoginUsuario+"'",Usuario.class);
       return query.getResultList();
     }
+    public static List<Usuario> Login(String LoginUsuario, String password){
+      TypedQuery<Usuario> query = JPA.em().createQuery("select u from Usuario u WHERE u.login='"+LoginUsuario+"' AND u.password='"+password+"'",Usuario.class);
+      return query.getResultList();
+    }
 }

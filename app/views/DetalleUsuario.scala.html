@@ -1,13 +1,13 @@
 @(usuario: Usuario)
 
 @main("Detalle Usuario"){
-  <h1><em>@usuario.login</em></h1>
+  <h1><em>Detalle del usuario @usuario.id</em></h1>
   <hr/>
-  <h3><em>@usuario.nombre</em></h1>
-  <h3><em>@usuario.apellidos</em></h3>
-  <h3><em>@usuario.eMail</em></h3>
-  <h3><em>@usuario.fechaNacimiento</em></h3>
+  <h3><strong>Login: </strong><em>@usuario.login</em></h1>
+  <h3><strong>Nombre: </strong><em>@usuario.nombre</em></h1>
+  <h3><strong>Apellidos: </strong><em>@usuario.apellidos</em></h3>
+  <h3><strong>Correo electronico: </strong><em>@usuario.eMail</em></h3>
+  <h3><strong>Fecha de nacimiento: </strong><em>@usuario.fechaNacimiento</em></h3>
 
-  <a class="btn btn-primary" href="@routes.UsuariosController.listaUsuarios()">Volver</a></p>
-  <a class="btn btn-primary" href="@routes.UsuariosController.editaUsuario(usuario.id)">Editar</a></p>
+  <a class="btn btn-primary" href="@routes.UsuariosController.listaUsuarios()">Volver</a> <a class="btn btn-primary" href="@routes.UsuariosController.editaUsuario(usuario.id)">Editar</a></p>
 }

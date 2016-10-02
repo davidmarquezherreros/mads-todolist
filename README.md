@@ -1,5 +1,5 @@
-###### mads-todolist
-#### **TICKETS**
+# mads-todolist
+### **TICKETS**
 El tablero con los tickets se puede encontrar [aqui](https://trello.com/b/YeGc58bU/todolist-tickets-david-marquez-herreros).
   1. TIC-1 Página Home con saludo
   2. TIC-2 Incluir bootstrap
@@ -24,23 +24,31 @@ El tablero con los tickets se puede encontrar [aqui](https://trello.com/b/YeGc58
    2. Puse una nueva ruta en el fichero /conf/routes para los metodos GET y POST.
    3. Hice las funciones que devuelven el formulario de creacion y la funcion que controla el evento post.
    4. Cree las siguientes clases: models/UsuarioDAO.java , models/Usuario.java y services/UsuarioService.java.
+
 #### **TIC-4 Página listado de usuarios**
   En este ticket se creo una pagina para listar todos los usuarios en la aplicacion para hacer esta pagina segui el ejempo del codigo de ayuda.
+
 #### **TIC-5 Página detalle de un usuario**
   Para hacer la pagina detalle de un usuario hice lo siguiente:
     1. Cree una nueva pagina DetalleUsuario.scala.html.
     2. Puse una nueva ruta en el fichero /conf/routes para el metodo GET.
     3. Hice la funcion que devuelve los datos de un usuario a partir de su identificador.
     4. Agregue la funcion findUsuario en services/UsuarioService.java.
+
 #### **TIC-6 Página editar un usuario**
   Para hacer la pagina editar usuario hice lo siguiente:
     1. Cree un nuevo formulario formModificacionUsuario.scala.html, este formulario contiene los datos del usuario que se quiere modificar.
     2. Para rellenar el formulario segui el tutorial de play utilizando el metodo fill:
+    
+              ```
               Form<Usuario> usuarioForm = formFactory.form(Usuario.class).bindFromRequest();
               Usuario user = new Usuario();
               user = UsuariosService.findUsuario(id);
               Form<Usuario> filledForm = usuarioForm.fill(user);
               return ok(formModificacionUsuario.render(filledForm,""));
+              ```
+  3. Cuando ya tenemos los datos del usuario a modificar se llama a la funcion grabaUsuarioModificado que actualiza los datos.
+  
 #### **TIC-7 Página borrar un usuario**
 #### **TIC-8 Breve documentacion del repositorio**
 #### **TIC-9 Pantalla registro de usuarios**

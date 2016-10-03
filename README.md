@@ -48,9 +48,9 @@ En este ticket se creo una pagina para listar todos los usuarios en la aplicaci�
 
 ##### **TIC-5 Página detalle de un usuario**
   Para hacer la pagina detalle de un usuario hice lo siguiente:
-    1. Cree una nueva pagina DetalleUsuario.scala.html.
-    2. Puse una nueva ruta en el fichero /conf/routes para el metodo GET.
-    3. Hice la función que devuelve los datos de un usuario a partir de su identificador.
+  1. Cree una nueva pagina DetalleUsuario.scala.html.
+  2. Puse una nueva ruta en el fichero /conf/routes para el metodo GET.
+  3. Hice la función que devuelve los datos de un usuario a partir de su identificador.
 ```java
         public Result detalleUsuario(String id) {
 	        return ok(DetalleUsuario.render(UsuariosService.findUsuario(id)));
@@ -158,12 +158,45 @@ Para hacer la pantalla de registro de usuarios  hice lo siguiente:
     }
 ```
 El fragmento de código anterior hace las siguientes comprobaciones:
-	- Si las contraseñas introducidas no coinciden, salta un mensaje de error diciendo que las contraseñas no coinciden forzando a volver a escribirlas.
-	- Si el usuario ya tiene contraseña, salta un mensaje diciendo que para cambiarla tiene que ponerse en contacto con el administrador.
-	- Si el usuario esta registrado sin contraseña y todos los campos son correctos, la contraseña se modifica y salta un mensaje indicando que todo fue un éxito.
-	- Si el usuario no esta registrado previamente por el administrador, se dará de alta un nuevo usuario y saltara un mensaje indicando que el registro fue un éxito.
+- Si las contraseñas introducidas no coinciden, salta un mensaje de error diciendo que las contraseñas no coinciden forzando a volver a escribirlas.
+- Si el usuario ya tiene contraseña, salta un mensaje diciendo que para cambiarla tiene que ponerse en contacto con el administrador.
+- Si el usuario esta registrado sin contraseña y todos los campos son correctos, la contraseña se modifica y salta un mensaje indicando que todo fue un éxito.
+- Si el usuario no esta registrado previamente por el administrador, se dará de alta un nuevo usuario y saltara un mensaje indicando que el registro fue un éxito.
 
 ##### **TIC-10 Pantalla login usuarios**
+Para hacer la pantalla de login de usuarios  hice lo siguiente:
+1. Cree el formulario formLoginUsuario, este formulario contiene los campos necesarios para iniciar sesion con un usuario.
+2. Puse una nueva ruta en el fichero conf/routes para los eventos GET y POST.
+3. El evento get esta controlado por la siguiente función:
+```java
+    public Result LoginUsuario(){
+      return ok(formLoginUsuario.render(formFactory.form(Usuario.class),""));
+    }
+```
+4. El evento post esta controlado por la siguiente función:
+```java
+public Result checkLoginUsuario(){
+      Form<Usuario> usuarioForm = formFactory.form(Usuario.class).bindFromRequest();
+      if (usuarioForm.hasErrors()) {
+          return badRequest(formLoginUsuario.render(usuarioForm, "Hay errores en el formulario"));
+      }
+      Usuario usuario = usuarioForm.get();
+      if(usuario.password.isEmpty()==true){
+        return badRequest(formLoginUsuario.render(usuarioForm, "Introduzca la contraseña, si no tiene vaya a registro"));
+      }
+      List<Usuario> userDB = UsuariosService.Login(usuario.login,usuario.password);
+      if(userDB.size()>0){
+        return ok(saludo.render(usuario.login));
+      }
+      else{
+        return badRequest(formLoginUsuario.render(usuarioForm, "Error en la contraseña / login"));
+      }
+    }
+```
+El fragmento de código anterior hace las siguientes comprobaciones:
+- Comprueba si hay errores en el formulario, si los hubiese salta un mensaje de error indicandolo.
+- Comprueba si las credenciales introducidas son correctas, si lo son la aplicación web te redirige a una pagina con un saludo.
+- Si las credenciales no son correctas aparece un mensaje indicandolo
 
 ##### **TIC-11 Mejoras en la apariencia**
 Se han hecho mejoras en el código html que utiliza la aplicación para que sea mas atractiva al usuario.

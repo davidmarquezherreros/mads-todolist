@@ -1,5 +1,23 @@
-# mads-todolist
-### **TICKETS**
+# **mads-todolist**
+
+
+
+### **DOCUMENTACIÓN DE USUARIO**
+#### **FUNCIONALIDADES**
+##### **REGISTRO**
+Para registrarse en la pagina web el usuario tendrá que completar el siguiente formulario:
+
+Los únicos campos obligatorios son el "Login" y los campos de la contraseña.
+##### **INICIO DE SESIÓN**
+##### **DAR DE ALTA USUARIOS**
+##### **DAR DE BAJA USUARIOS**
+##### **EDITAR USUARIOS**
+##### **VER DATOS USUARIO**
+##### **MODIFICAR USUARIO**
+
+
+### **DOCUMENTACIÓN DE DESARROLLADOR**
+#### **TICKETS**
 El tablero con los tickets se puede encontrar [aqui](https://trello.com/b/YeGc58bU/todolist-tickets-david-marquez-herreros).
   1. TIC-1 Página Home con saludo
   2. TIC-2 Incluir bootstrap
@@ -13,51 +31,58 @@ El tablero con los tickets se puede encontrar [aqui](https://trello.com/b/YeGc58
   10. TIC-10 Pantalla login usuarios
   11. TIC-11 Mejoras en la apariencia
   
-#### **TIC-1 Página Home con saludo**
+##### **TIC-1 Página Home con saludo**
   En este ticket se creo una pagina muy basica siguiendo las explicaciones de la practica guiada.
-#### **TIC-2 Incluir Bootstrap**
+##### **TIC-2 Incluir Bootstrap**
   Para añadir Bootstrap, me fui a la pagina de [descarga](http://getbootstrap.com/getting-started/#download) y descargue la primera opcion.
   Una vez que estaba descargada me fui a mi proyecto de play y copie la carpeta en la carpeta "public".
-#### **TIC-3 Página crear usuario**
+##### **TIC-3 Página crear usuario**
   Para hacer la pagina crear un usuario hice lo siguiente:
    1. Cree el formulario formCreacionUsuario.scala.html, este formulario contiene los campos necesarios para crear un usuario.
    2. Puse una nueva ruta en el fichero /conf/routes para los metodos GET y POST.
    3. Hice las funciones que devuelven el formulario de creacion y la funcion que controla el evento post.
    4. Cree las siguientes clases: models/UsuarioDAO.java , models/Usuario.java y services/UsuarioService.java.
 
-#### **TIC-4 Página listado de usuarios**
-  En este ticket se creo una pagina para listar todos los usuarios en la aplicacion para hacer esta pagina segui el ejempo del codigo de ayuda.
+##### **TIC-4 Página listado de usuarios**
+En este ticket se creo una pagina para listar todos los usuarios en la aplicación para hacer esta pagina seguí el ejemplo del código de ayuda.
 
-#### **TIC-5 Página detalle de un usuario**
+##### **TIC-5 Página detalle de un usuario**
   Para hacer la pagina detalle de un usuario hice lo siguiente:
     1. Cree una nueva pagina DetalleUsuario.scala.html.
     2. Puse una nueva ruta en el fichero /conf/routes para el metodo GET.
-    3. Hice la funcion que devuelve los datos de un usuario a partir de su identificador.
-    4. Agregue la funcion findUsuario en services/UsuarioService.java.
+    3. Hice la función que devuelve los datos de un usuario a partir de su identificador.
+    4. Agregue la función findUsuario en services/UsuarioService.java.
 
-#### **TIC-6 Página editar un usuario**
+##### **TIC-6 Página editar un usuario**
   Para hacer la pagina editar usuario hice lo siguiente:
     1. Cree un nuevo formulario formModificacionUsuario.scala.html, este formulario contiene los datos del usuario que se quiere modificar.
     2. Para rellenar el formulario segui el tutorial de play utilizando el metodo fill:
-    
+    ```java
               Form<Usuario> usuarioForm = formFactory.form(Usuario.class).bindFromRequest();
               Usuario user = new Usuario();
               user = UsuariosService.findUsuario(id);
               Form<Usuario> filledForm = usuarioForm.fill(user);
               return ok(formModificacionUsuario.render(filledForm,""));
-              
-  3. Cuando ya tenemos los datos del usuario a modificar se llama a la funcion grabaUsuarioModificado que actualiza los datos.
+              ```
+  3. Cuando ya tenemos los datos del usuario a modificar se llama a la función grabaUsuarioModificado. La funcion grabaUsuarioModificado hace lo siguiente:
+  ```java
+      Usuario usuario = usuarioForm.get();
+      usuario = UsuariosService.modificaUsuario(usuario);
+      flash("grabaUsuario", "El usuario se ha modificado correctamente");
+      return redirect(controllers.routes.UsuariosController.listaUsuarios());
+	```
+	Como se puede observar en el fragmento de codigo anterior la funcion grabaUsuarioModificado llama a la funcion modificaUsuario para que gestione la modificacion del usuario en la "base de datos".
+  4. La función modificaUsuario a se encarga de llamar a UsuarioDAO.update que modifica el usuario en la "base de datos".
   
-#### **TIC-7 Página borrar un usuario**
+##### **TIC-7 Página borrar un usuario**
   Para hacer la pagina borrar un usuario hice lo siguiente:
-  
-    1. Me descargue y añadide el fichero jquery.jmin.js, para que funcionase el script de borrado del codigo de ayuda.
-    2. Modifique el fichero /services/UsuariosService.java para que la funcion deleteUsuario llamase a UsuarioDAO 
-    y devolviese verdadero si habia borrado el usuario y falso si no.
+	  1. Me descargue y añadí el fichero jquery.jmin.js, para que funcionase el script de borrado del código de ayuda.
+	  2. Modifique el fichero /services/UsuariosService.java para que la función deleteUsuario llamase a UsuarioDAO y devolviese verdadero si había borrado el usuario y falso si no.
     
-#### **TIC-8 Breve documentacion del repositorio**
+##### **TIC-8 Breve documentacion del repositorio**
   Modifique el archivo [README.md](https://github.com/davidmarquezherreros/mads-todolist/blob/master/README.md)
-#### **TIC-9 Pantalla registro de usuarios**
+##### **TIC-9 Pantalla registro de usuarios**
 
-#### **TIC-10 Pantalla login usuarios**
-#### **TIC-11 Mejoras en la apariencia**
+##### **TIC-10 Pantalla login usuarios**
+##### **TIC-11 Mejoras en la apariencia**
+

@@ -173,7 +173,7 @@ Para hacer la pantalla de login de usuarios  hice lo siguiente:
       return ok(formLoginUsuario.render(formFactory.form(Usuario.class),""));
     }
 ```
-a
+4. El evento post esta controlado por la siguiente función:
 ```java
 public Result checkLoginUsuario(){
       Form<Usuario> usuarioForm = formFactory.form(Usuario.class).bindFromRequest();

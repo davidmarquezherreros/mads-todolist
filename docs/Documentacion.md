@@ -6,7 +6,7 @@
 #### **FUNCIONALIDADES**
 ##### **REGISTRO**
 Para registrarse en la pagina web el usuario tendrá que completar el siguiente formulario:
-
+![alt text](https://github.com/davidmarquezherreros/mads-todolist/blob/master/docs/capturaspantalla/CrearUsuarioNuevo.png "Pantalla Crear usuario")
 Los únicos campos obligatorios son el "Login" y los campos de la contraseña.
 ##### **INICIO DE SESIÓN**
 ##### **DAR DE ALTA USUARIOS**

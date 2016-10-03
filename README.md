@@ -5,16 +5,35 @@
 ### **DOCUMENTACIÓN DE USUARIO**
 #### **FUNCIONALIDADES**
 ##### **REGISTRO**
-Para registrarse en la pagina web el usuario tendrá que completar el siguiente formulario:
-
+Para registrarse en la pagina web el usuario tendrá que completar el siguiente formulario (accediendo a http://localhost:9000/registro)
+![alt text](https://github.com/davidmarquezherreros/mads-todolist/blob/master/docs/capturaspantalla/Registro.png "Pantalla Registro")
 Los únicos campos obligatorios son el "Login" y los campos de la contraseña.
-##### **INICIO DE SESIÓN**
-##### **DAR DE ALTA USUARIOS**
-##### **DAR DE BAJA USUARIOS**
-##### **EDITAR USUARIOS**
-##### **VER DATOS USUARIO**
-##### **MODIFICAR USUARIO**
 
+##### **INICIO DE SESIÓN**
+Para iniciar sesion se debe acceder a http://localhost:9000/login
+![alt text](https://github.com/davidmarquezherreros/mads-todolist/blob/master/docs/capturaspantalla/Login.png "Pantalla Inicio de sesión")
+
+##### **DAR DE ALTA USUARIOS**
+Para dar de alta un usuario se debe acceder a http://localhost:9000/usuarios/nuevo y completar el formulario
+![alt text](https://github.com/davidmarquezherreros/mads-todolist/blob/master/docs/capturaspantalla/CrearUsuarioNuevo.png "Pantalla Crear usuario")
+
+##### **DAR DE BAJA USUARIOS**
+Para borrar un usuario solo se debe pulsar el boton borrar de la pantalla 
+![alt text](https://github.com/davidmarquezherreros/mads-todolist/blob/master/docs/capturaspantalla/ListadoUsuarios.png "Pantalla Listado Usuarios")
+
+##### **EDITAR USUARIO**
+Para editar un usuario se puede pulsar el boton editar de la siguiente pantalla:
+![alt text](https://github.com/davidmarquezherreros/mads-todolist/blob/master/docs/capturaspantalla/ListadoUsuarios.png "Pantalla Listado Usuarios")
+
+O tambien se puede acceder a http://localhost:9000/usuarios/id/editar
+##### **VER DATOS USUARIO**
+Para ver los datos de un usuario solo se debe hacer http://localhost:9000/usuarios/id o tambien se puede pulsar el boton detalle en la pantalla de listado de usuarios.
+![alt text](https://github.com/davidmarquezherreros/mads-todolist/blob/master/docs/capturaspantalla/DetalleUsuario.png "Pantalla Detallae Usuario")
+
+
+##### **VER TODOS LOS USUARIOS**
+Para ver todos los usuarios solo se debe hacer http://localhost:9000/usuarios/
+![alt text](https://github.com/davidmarquezherreros/mads-todolist/blob/master/docs/capturaspantalla/ListadoUsuarios.png "Pantalla Listado Usuarios")
 
 ### **DOCUMENTACIÓN DE DESARROLLADOR**
 #### **TICKETS**

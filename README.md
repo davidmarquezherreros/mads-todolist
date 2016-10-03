@@ -117,10 +117,6 @@ Para hacer la pantalla de registro de usuarios  hice lo siguiente:
 ```
 4. El evento post esta controlado por la siguiente función:
 ```java
-    public Result RegistroNuevoUsuario(){
-      return ok(formRegistroUsuario.render(formFactory.form(Usuario.class),""));
-    }
-    @Transactional
     public Result grabaRegistroNuevoUsuario(){
       Form<Usuario> usuarioForm = formFactory.form(Usuario.class).bindFromRequest();
       if (usuarioForm.hasErrors()) {
@@ -139,7 +135,6 @@ Para hacer la pantalla de registro de usuarios  hice lo siguiente:
         List<Usuario> userDB = UsuariosService.findUsuarioLogin(usuario.login);
         Logger.debug(userDB.toString());
         if(userDB.size()>0){
-          Logger.debug("El usuario ya existe en la base de datos");
           Usuario aux = userDB.get(0);
           if(aux.password == null){
             aux.password = usuario.password;
@@ -150,7 +145,6 @@ Para hacer la pantalla de registro de usuarios  hice lo siguiente:
           }
         }
         else{
-          Logger.debug("El usuario no existe en la base de datos");
           UsuariosService.grabaUsuario(usuario);
         }
       }
@@ -164,7 +158,39 @@ El fragmento de código anterior hace las siguientes comprobaciones:
 	- Si el usuario no esta registrado previamente por el administrador, se dará de alta un nuevo usuario y saltara un mensaje indicando que el registro fue un éxito.
 
 ##### **TIC-10 Pantalla login usuarios**
-
+Para hacer la pantalla de login de usuarios  hice lo siguiente:
+1. Cree el formulario formLoginUsuario, este formulario contiene los campos necesarios para iniciar sesion con un usuario.
+2. Puse una nueva ruta en el fichero conf/routes para los eventos GET y POST.
+3. El evento get esta controlado por la siguiente función:
+```java
+    public Result LoginUsuario(){
+      return ok(formLoginUsuario.render(formFactory.form(Usuario.class),""));
+    }
+```
+a
+```java
+public Result checkLoginUsuario(){
+      Form<Usuario> usuarioForm = formFactory.form(Usuario.class).bindFromRequest();
+      if (usuarioForm.hasErrors()) {
+          return badRequest(formLoginUsuario.render(usuarioForm, "Hay errores en el formulario"));
+      }
+      Usuario usuario = usuarioForm.get();
+      if(usuario.password.isEmpty()==true){
+        return badRequest(formLoginUsuario.render(usuarioForm, "Introduzca la contraseña, si no tiene vaya a registro"));
+      }
+      List<Usuario> userDB = UsuariosService.Login(usuario.login,usuario.password);
+      if(userDB.size()>0){
+        return ok(saludo.render(usuario.login));
+      }
+      else{
+        return badRequest(formLoginUsuario.render(usuarioForm, "Error en la contraseña / login"));
+      }
+    }
+```
+El fragmento de código anterior hace las siguientes comprobaciones:
+	- Comprueba si hay errores en el formulario, si los hubiese salta un mensaje de error indicandolo.
+	- Comprueba si las credenciales introducidas son correctas, si lo son la aplicación web te redirige a una pagina con un saludo.
+	- Si las credenciales no son correctas aparece un mensaje indicandolo
+	
 ##### **TIC-11 Mejoras en la apariencia**
 Se han hecho mejoras en el código html que utiliza la aplicación para que sea mas atractiva al usuario.
-

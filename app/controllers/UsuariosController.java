@@ -63,8 +63,12 @@ public class UsuariosController extends Controller {
 
     @Transactional
     public Result detalleUsuario(String id) {
-        Logger.debug("Usuario: " + UsuarioDAO.find(id).toString());
-        return ok(DetalleUsuario.render(UsuariosService.findUsuario(id)));
+        if(UsuarioDAO.find(id)!=null){
+          return ok(DetalleUsuario.render(UsuariosService.findUsuario(id)));
+        }
+        else{
+          return saludo(", el identificador "+id+" no existe!");
+        }
     }
 
     @Transactional
@@ -147,5 +151,9 @@ public class UsuariosController extends Controller {
       else{
         return badRequest(formLoginUsuario.render(usuarioForm, "Error en la contraseña / login"));
       }
+    }
+    // Mensaje de error
+    public Result saludo(String nombre){
+      return ok(saludo.render(nombre));
     }
 }

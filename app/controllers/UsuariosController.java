@@ -73,12 +73,17 @@ public class UsuariosController extends Controller {
 
     @Transactional
     public Result editaUsuario(String id) {
+      if(UsuarioDAO.find(id)!=null){
         Form<Usuario> usuarioForm = formFactory.form(Usuario.class).bindFromRequest();
         Logger.debug(usuarioForm.toString());
         Usuario user = new Usuario();
         user = UsuariosService.findUsuario(id);
         Form<Usuario> filledForm = usuarioForm.fill(user);
         return ok(formModificacionUsuario.render(filledForm,""));
+      }
+      else{
+        return saludo(", el identificador "+id+" no existe!");
+      }
     }
 
     @Transactional

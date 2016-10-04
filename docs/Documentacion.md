@@ -110,8 +110,7 @@ En este ticket se creo una pagina para listar todos los usuarios en la aplicaci�
 	      return redirect(controllers.routes.UsuariosController.listaUsuarios());
     }
 ```
-Como se puede observar en el fragmento de código anterior la funcion grabaUsuarioModificado llama a la función modificaUsuario para que gestione la modificación del usuario en la "base de datos".
-  4. La función modificaUsuario a se encarga de llamar a UsuarioDAO.update que modifica el usuario en la "base de datos".
+Como se puede observar en el fragmento de código anterior la funcion grabaUsuarioModificado llama a la función UsuariosService.modificaUsuario para que gestione la modificación del usuario en la "base de datos", la modificacion en la base de datos estara gestionada por la clase UsuarioDAO.
 
 ##### **TIC-7 Página borrar un usuario**
   Para hacer la pagina borrar un usuario hice lo siguiente:
@@ -297,7 +296,7 @@ Esta clase se encarga de mantener la integridad de la capa de persistencia.
     }
 ```
 
-##### **Funcion buscar con login**
+##### **Funciones adicionales**
 ```java
     public static List<Usuario> findUsuarioLogin(String login){
       return UsuarioDAO.findUsuarioLogin(login);
@@ -306,7 +305,8 @@ Esta clase se encarga de mantener la integridad de la capa de persistencia.
       return UsuarioDAO.Login(login,password);
     }
 ```
-
+La primera funcion se encarga de llamar a la capa de persistencia para buscar un usuario dado su login.
+La segunda funcion se encarga de llamar a la capa de persistencia para devolver un usuario que cumpla con las credenciales introducidas.
 
 ##### **UsuariosDAO**
 El fichero java se puede encontrar [aquí](https://github.com/davidmarquezherreros/mads-todolist/blob/master/app/models/UsuarioDAO.java).
@@ -364,3 +364,7 @@ El segundo se encarga de verificar las credenciales para el inicio de sesión. E
 SELECT u from USUARIO WHERE u.login = login_user AND u.password = password_user
 ```
 Si no existiese un usuario que cumpliese las condiciones de esa consulta el método de inicio de sesión se encargaría de manejar el error.
+
+##### **BIBLIOGRAFÍA**
+[Tutoriales play](https://www.playframework.com/documentation/2.5.x/Tutorials)
+[Tutoriales jpa](https://www.tutorialspoint.com/jpa/index.htm)

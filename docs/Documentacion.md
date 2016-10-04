@@ -55,6 +55,7 @@ El tablero con los tickets se puede encontrar [aquí](https://trello.com/b/YeGc5
   12. TIC-12 Arreglar error NullPointerException (DetalleUsuario)
   13. TIC-13 Arreglar error NullPointerException (EditaUsuario)
   14. TIC-14 Arreglar documentación
+  15. TIC-15 Arreglar error dos usuarios mismo login
 
 
 ##### **TIC-1 Página Home con saludo**
@@ -260,7 +261,29 @@ Ahora antes de redirigir a la pagina con los datos cargados de ese usuario en el
 ##### **TIC-14 Arreglar documentación**
 Se han solucionado errores en la sintaxis markdown.
 
+##### **TIC-15 Arreglar error dos usuarios mismo login**
+```java
+public Result grabaNuevoUsuario() {
 
+    Form<Usuario> usuarioForm = formFactory.form(Usuario.class).bindFromRequest();
+    if (usuarioForm.hasErrors()) {
+        return badRequest(formCreacionUsuario.render(usuarioForm, "Hay errores en el formulario"));
+    }
+    Usuario usuario = usuarioForm.get();
+    if(UsuariosService.findUsuarioLogin(usuario.login).size()>0){
+      return ok(formCreacionUsuario.render(formFactory.form(Usuario.class),"Error, el login ya existe"));
+    }else{
+      usuario = UsuariosService.grabaUsuario(usuario);
+      flash("grabaUsuario", "El usuario se ha guardado correctamente");
+      return redirect(controllers.routes.UsuariosController.listaUsuarios());
+    }
+}
+```
+Se ha añadido una comprobacion a la hora de crear un usuario para evitar que se cree un usuario con el mismo login.
+```html
+  @helper.inputText(usuarioForm("login"), '_label -> "Login",'readonly->"readonly")
+```
+Se ha añadido una restricción en el formulario modificar usuario para que el atributo login no se pueda modificar.
 #### **Aclaraciones finales**
 ##### **UsuariosService**
 El fichero java se puede encontrar [aquí](https://github.com/davidmarquezherreros/mads-todolist/blob/master/app/services/UsuariosService.java).

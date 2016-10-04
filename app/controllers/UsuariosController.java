@@ -44,9 +44,13 @@ public class UsuariosController extends Controller {
         }
         Usuario usuario = usuarioForm.get();
         Logger.debug("Usuario a grabar: " + usuario.toString());
-        usuario = UsuariosService.grabaUsuario(usuario);
-        flash("grabaUsuario", "El usuario se ha guardado correctamente");
-        return redirect(controllers.routes.UsuariosController.listaUsuarios());
+        if(UsuariosService.findUsuarioLogin(usuario.login).size()>0){
+          return ok(formCreacionUsuario.render(formFactory.form(Usuario.class),"Error, el login ya existe"));
+        }else{
+          usuario = UsuariosService.grabaUsuario(usuario);
+          flash("grabaUsuario", "El usuario se ha guardado correctamente");
+          return redirect(controllers.routes.UsuariosController.listaUsuarios());
+        }
     }
 
     @Transactional
@@ -54,7 +58,7 @@ public class UsuariosController extends Controller {
 
       Form<Usuario> usuarioForm = formFactory.form(Usuario.class).bindFromRequest();
       if (usuarioForm.hasErrors()) {
-          return badRequest(formCreacionUsuario.render(usuarioForm, "Hay errores en el formulario"));
+          return badRequest(formModificacionUsuario.render(usuarioForm, "Hay errores en el formulario"));
       }
       Usuario usuario = usuarioForm.get();
 

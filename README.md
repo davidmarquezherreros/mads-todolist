@@ -6,19 +6,22 @@
 #### **FUNCIONALIDADES**
 ##### **REGISTRO**
 Para registrarse en la pagina web el usuario tendrá que completar el siguiente formulario (accediendo a http://localhost:9000/registro)
+
 ![alt text](https://github.com/davidmarquezherreros/mads-todolist/blob/master/docs/capturaspantalla/Registro.png "Pantalla Registro")
 Los únicos campos obligatorios son el "Login" y los campos de la contraseña.
 
 ##### **INICIO DE SESIÓN**
-Para iniciar sesion se debe acceder a http://localhost:9000/login
+Para iniciar sesion se debe acceder a http://localhost:9000/login y completar el formulario de la siguiente pantalla:
+
 ![alt text](https://github.com/davidmarquezherreros/mads-todolist/blob/master/docs/capturaspantalla/Login.png "Pantalla Inicio de sesión")
 
 ##### **DAR DE ALTA USUARIOS**
-Para dar de alta un usuario se debe acceder a http://localhost:9000/usuarios/nuevo y completar el formulario
+Para dar de alta un usuario se debe acceder a http://localhost:9000/usuarios/nuevo y completar el formulario de la siguiente pantalla:
+
 ![alt text](https://github.com/davidmarquezherreros/mads-todolist/blob/master/docs/capturaspantalla/CrearUsuarioNuevo.png "Pantalla Crear usuario")
 
 ##### **DAR DE BAJA USUARIOS**
-Para borrar un usuario solo se debe pulsar el boton borrar de la pantalla 
+Para borrar un usuario solo se debe pulsar el boton borrar de la pantalla
 ![alt text](https://github.com/davidmarquezherreros/mads-todolist/blob/master/docs/capturaspantalla/ListadoUsuarios.png "Pantalla Listado Usuarios")
 
 ##### **EDITAR USUARIO**
@@ -49,7 +52,11 @@ El tablero con los tickets se puede encontrar [aquí](https://trello.com/b/YeGc5
   9. TIC-9 Pantalla registro de usuarios
   10. TIC-10 Pantalla login usuarios
   11. TIC-11 Mejoras en la apariencia
-  
+  12. TIC-12 Arreglar error NullPointerException (DetalleUsuario)
+  13. TIC-13 Arreglar error NullPointerException (EditaUsuario)
+  14. TIC-14 Arreglar documentación
+
+
 ##### **TIC-1 Página Home con saludo**
   En este ticket se creo una pagina muy básica siguiendo las explicaciones de la practica guiada.
 ##### **TIC-2 Incluir Bootstrap**
@@ -105,7 +112,7 @@ En este ticket se creo una pagina para listar todos los usuarios en la aplicaci�
 ```
 Como se puede observar en el fragmento de código anterior la funcion grabaUsuarioModificado llama a la función modificaUsuario para que gestione la modificación del usuario en la "base de datos".
   4. La función modificaUsuario a se encarga de llamar a UsuarioDAO.update que modifica el usuario en la "base de datos".
-  
+
 ##### **TIC-7 Página borrar un usuario**
   Para hacer la pagina borrar un usuario hice lo siguiente:
 	  1. Me descargue y añadí el fichero jquery.jmin.js, para que funcionase el script de borrado del código de ayuda.
@@ -121,9 +128,10 @@ Como se puede observar en el fragmento de código anterior la funcion grabaUsuar
 	  }
 ```
 El fragmento de código anterior muestra las modificaciones realizadas en el fichero /services/UsuariosService.java
-    
+
 ##### **TIC-8 Breve documentacion del repositorio**
-  Modifique el archivo [README.md](https://github.com/davidmarquezherreros/mads-todolist/blob/master/README.md)
+ Se ha creado la estructura de la documentación en el repositorio.
+
 ##### **TIC-9 Pantalla registro de usuarios**
 Para hacer la pantalla de registro de usuarios  hice lo siguiente:
 1. Cree el formulario formCreacionUsuario, este formulario contiene los campos necesarios para registrar un usuario (son los mismo que para crear un usuario salvo que en este formulario se le pide una contraseña al usuario).
@@ -219,4 +227,140 @@ El fragmento de código anterior hace las siguientes comprobaciones:
 
 ##### **TIC-11 Mejoras en la apariencia**
 Se han hecho mejoras en el código html que utiliza la aplicación para que sea mas atractiva al usuario.
+##### **TIC-12 Arreglar error NullPointerException (DetalleUsuario)**
+```java
+    public Result detalleUsuario(String id) {
+        if(UsuariosService.findUsuario(id)!=null){
+          return ok(DetalleUsuario.render(UsuariosService.findUsuario(id)));
+        }
+        else{
+          return saludo(", el identificador "+id+" no existe!");
+        }
+    }
+```
+Ahora antes de redirigir a la pagina con los detalles de ese usuario verifica que existe para evitar el error de NullPointerException.
 
+##### **TIC-13 Arreglar error NullPointerException (EditaUsuario)**
+```java
+    public Result editaUsuario(String id) {
+      if(UsuariosService.findUsuario(id)!=null){
+        Form<Usuario> usuarioForm = formFactory.form(Usuario.class).bindFromRequest();
+        Logger.debug(usuarioForm.toString());
+        Usuario user = new Usuario();
+        user = UsuariosService.findUsuario(id);
+        Form<Usuario> filledForm = usuarioForm.fill(user);
+        return ok(formModificacionUsuario.render(filledForm,""));
+      }
+      else{
+        return saludo(", el identificador "+id+" no existe!");
+      }
+    }
+```
+Ahora antes de redirigir a la pagina con los datos cargados de ese usuario en el formulario verifica que existe para evitar el error NullPointerException.
+
+##### **TIC-14 Arreglar documentación**
+Se han solucionado errores en la sintaxis markdown.
+
+
+#### **Aclaraciones finales**
+##### **UsuariosService**
+El fichero java se puede encontrar [aquí](https://github.com/davidmarquezherreros/mads-todolist/blob/master/app/services/UsuariosService.java).
+Esta clase se encarga de mantener la integridad de la capa de persistencia.
+##### **Funciones Create Read Update Delete ReadAll**
+```java
+    public static Usuario grabaUsuario(Usuario usuario) {
+        return UsuarioDAO.create(usuario);
+    }
+
+    public static Usuario modificaUsuario(Usuario usuario) {
+      Logger.debug("UsuarioService modificar: "+ usuario);
+      return UsuarioDAO.update(usuario);
+    }
+
+    public static Usuario findUsuario(String id){
+        return UsuarioDAO.find(id);
+    }
+
+    public static boolean deleteUsuario(String id) {
+        Logger.debug("Usuario a borrar: " + UsuarioDAO.find(id).toString());
+         UsuarioDAO.delete(id);
+        if(UsuarioDAO.find(id)==null){
+              return true;
+        }else
+          return false;
+    }
+
+    public static List<Usuario> findAllUsuarios() {
+        List<Usuario> lista = UsuarioDAO.findAll();
+        Logger.debug("Numero de usuarios: " + lista.size());
+        return lista;
+    }
+```
+
+##### **Funcion buscar con login**
+```java
+    public static List<Usuario> findUsuarioLogin(String login){
+      return UsuarioDAO.findUsuarioLogin(login);
+    }
+    public static List<Usuario> Login(String login,String password){
+      return UsuarioDAO.Login(login,password);
+    }
+```
+
+
+##### **UsuariosDAO**
+El fichero java se puede encontrar [aquí](https://github.com/davidmarquezherreros/mads-todolist/blob/master/app/models/UsuarioDAO.java).
+Esta clase se encarga de la persistencia de datos.
+##### **Funciones Create Read Update Delete ReadAll**
+```java
+    public static Usuario create (Usuario usuario) {
+        usuario.nulificaAtributos();
+        JPA.em().persist(usuario);
+        JPA.em().flush();
+        JPA.em().refresh(usuario);
+        return usuario;
+    }
+
+    public static Usuario find(String idUsuario) {
+        return JPA.em().find(Usuario.class, idUsuario);
+    }
+
+    public static Usuario update(Usuario usuario) {
+        return JPA.em().merge(usuario);
+    }
+
+    public static void delete(String idUsuario) {
+        Usuario usuario = JPA.em().getReference(Usuario.class, idUsuario);
+        JPA.em().remove(usuario);
+    }
+        public static List<Usuario> findAll() {
+        TypedQuery<Usuario> query = JPA.em().createQuery(
+                  "select u from Usuario u ORDER BY id", Usuario.class);
+        return query.getResultList();
+    }
+```
+Como se puede observar en el fragmento de código anterior se han creado los métodos CRUD, mas el método para leer todos los usuarios. Esto se ha hecho utilizando la librería [JPA](https://www.tutorialspoint.com/jpa/index.htm) que nos permiten almacenar los datos de una forma persistente.
+
+##### **Funciones adicionales**
+```java
+    public static List<Usuario> findUsuarioLogin(String LoginUsuario){
+      TypedQuery<Usuario> query = JPA.em().createQuery("select u from Usuario u WHERE u.login='"+LoginUsuario+"'",Usuario.class);
+      return query.getResultList();
+    }
+    public static List<Usuario> Login(String LoginUsuario, String password){
+      TypedQuery<Usuario> query = JPA.em().createQuery("select u from Usuario u WHERE u.login='"+LoginUsuario+"' AND u.password='"+password+"'",Usuario.class);
+      return query.getResultList();
+    }
+```
+Para hacer las funciones de login y registro se han hecho los dos métodos anteriores.
+El primero busca si el usuario existe en la base de datos, y si existe lo devuelve. Esto lo consigue realizando la siguiente consulta:
+```sql
+SELECT u FROM USUARIO WHERE u.login = login_usuario
+```
+Si no existiese un usuario que cumpliese la consulta anterior el método de registro se encargaría de manejar dicho error.
+
+El segundo se encarga de verificar las credenciales para el inicio de sesión. Esto lo consigue realizando la siguiente consulta:
+```sql
+SELECT u from USUARIO WHERE u.login = login_user AND u.password = password_user
+```
+Si no existiese un usuario que cumpliese las condiciones de esa consulta el método de inicio de sesión se encargaría de manejar el error.

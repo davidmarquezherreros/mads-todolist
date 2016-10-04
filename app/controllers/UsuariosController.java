@@ -51,19 +51,27 @@ public class UsuariosController extends Controller {
 
     @Transactional
     public Result grabaUsuarioModificado() {
+
       Form<Usuario> usuarioForm = formFactory.form(Usuario.class).bindFromRequest();
       if (usuarioForm.hasErrors()) {
           return badRequest(formCreacionUsuario.render(usuarioForm, "Hay errores en el formulario"));
       }
       Usuario usuario = usuarioForm.get();
+
       usuario = UsuariosService.modificaUsuario(usuario);
-      flash("grabaUsuario", "El usuario se ha modificado correctamente");
+      if(usuario.nombre != "empty"){
+        flash("grabaUsuario", "El usuario se ha modificado correctamente");
+      }
+      else{
+        flash("grabaUsuario", "No se puede modificar el login");
+      }
+
       return redirect(controllers.routes.UsuariosController.listaUsuarios());
     }
 
     @Transactional
     public Result detalleUsuario(String id) {
-        if(UsuarioDAO.find(id)!=null){
+        if(UsuariosService.findUsuario(id)!=null){
           return ok(DetalleUsuario.render(UsuariosService.findUsuario(id)));
         }
         else{
@@ -73,7 +81,7 @@ public class UsuariosController extends Controller {
 
     @Transactional
     public Result editaUsuario(String id) {
-      if(UsuarioDAO.find(id)!=null){
+      if(UsuariosService.findUsuario(id)!=null){
         Form<Usuario> usuarioForm = formFactory.form(Usuario.class).bindFromRequest();
         Logger.debug(usuarioForm.toString());
         Usuario user = new Usuario();

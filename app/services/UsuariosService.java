@@ -15,8 +15,7 @@ public class UsuariosService {
     }
 
     public static Usuario modificaUsuario(Usuario usuario) {
-      Logger.debug("UsuarioService modificar: "+ usuario);
-      return UsuarioDAO.update(usuario);
+        return UsuarioDAO.update(usuario);
     }
 
     public static Usuario findUsuario(String id){

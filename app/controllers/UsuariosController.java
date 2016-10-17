@@ -74,7 +74,7 @@ public class UsuariosController extends Controller {
     }
 
     @Transactional
-    public Result detalleUsuario(String id) {
+    public Result detalleUsuario(Integer id) {
         if(UsuariosService.findUsuario(id)!=null){
           return ok(DetalleUsuario.render(UsuariosService.findUsuario(id)));
         }
@@ -84,7 +84,7 @@ public class UsuariosController extends Controller {
     }
 
     @Transactional
-    public Result editaUsuario(String id) {
+    public Result editaUsuario(Integer id) {
       if(UsuariosService.findUsuario(id)!=null){
         Form<Usuario> usuarioForm = formFactory.form(Usuario.class).bindFromRequest();
         Logger.debug(usuarioForm.toString());
@@ -99,7 +99,7 @@ public class UsuariosController extends Controller {
     }
 
     @Transactional
-    public Result borraUsuario(String id) {
+    public Result borraUsuario(Integer id) {
         UsuariosService.deleteUsuario(id);
         Logger.debug("Usuario a borrar: "+UsuariosService.findUsuario(id));
         return redirect(controllers.routes.UsuariosController.listaUsuarios());

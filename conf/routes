@@ -20,10 +20,10 @@ POST    /usuarios/nuevo             controllers.UsuariosController.grabaNuevoUsu
 POST    /usuarios/modifica          controllers.UsuariosController.grabaUsuarioModificado()
 
 # TIC-5 Detalle usuario
-GET     /usuarios/:id               controllers.UsuariosController.detalleUsuario(id: String)
+GET     /usuarios/:id               controllers.UsuariosController.detalleUsuario(id: Integer)
 
-GET     /usuarios/:id/editar        controllers.UsuariosController.editaUsuario(id: String)
-DELETE  /usuarios/:id               controllers.UsuariosController.borraUsuario(id: String)
+GET     /usuarios/:id/editar        controllers.UsuariosController.editaUsuario(id: Integer)
+DELETE  /usuarios/:id               controllers.UsuariosController.borraUsuario(id: Integer)
 
 # TIC-9
 GET  /registro             controllers.UsuariosController.RegistroNuevoUsuario()

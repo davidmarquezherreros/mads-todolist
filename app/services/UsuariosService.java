@@ -18,11 +18,11 @@ public class UsuariosService {
         return UsuarioDAO.update(usuario);
     }
 
-    public static Usuario findUsuario(String id){
+    public static Usuario findUsuario(Integer id){
         return UsuarioDAO.find(id);
     }
 
-    public static boolean deleteUsuario(String id) {
+    public static boolean deleteUsuario(Integer id) {
         Logger.debug("Usuario a borrar: " + UsuarioDAO.find(id).toString());
          UsuarioDAO.delete(id);
         if(UsuarioDAO.find(id)==null){

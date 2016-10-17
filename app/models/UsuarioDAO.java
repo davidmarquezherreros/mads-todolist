@@ -38,9 +38,14 @@ public class UsuarioDAO {
         return query.getResultList();
     }
 
-    public static List<Usuario> findUsuarioLogin(String LoginUsuario){
-      TypedQuery<Usuario> query = JPA.em().createQuery("select u from Usuario u WHERE u.login='"+LoginUsuario+"'",Usuario.class);
-      return query.getResultList();
+    public static Usuario findUsuarioLogin(String LoginUsuario){
+      TypedQuery<Usuario> query = JPA.em().createQuery("select u from Usuario AS u WHERE u.login='"+LoginUsuario+"'",Usuario.class);
+      List<Usuario> resultado = query.getResultList();
+      Usuario u = null;
+      if(resultado.size()>0){
+        u = resultado.get(0);
+      }
+      return u;
     }
     public static List<Usuario> Login(String LoginUsuario, String password){
       TypedQuery<Usuario> query = JPA.em().createQuery("select u from Usuario u WHERE u.login='"+LoginUsuario+"' AND u.password='"+password+"'",Usuario.class);

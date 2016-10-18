@@ -44,7 +44,7 @@ public class UsuariosController extends Controller {
         }
         Usuario usuario = usuarioForm.get();
         Logger.debug("Usuario a grabar: " + usuario.toString());
-        if(UsuariosService.findUsuarioLogin(usuario.login).size()>0){
+        if(UsuariosService.findUsuarioLogin(usuario.login) != null){
           return ok(formCreacionUsuario.render(formFactory.form(Usuario.class),"Error, el login ya existe"));
         }else{
           usuario = UsuariosService.grabaUsuario(usuario);
@@ -126,11 +126,11 @@ public class UsuariosController extends Controller {
         return badRequest(formRegistroUsuario.render(usuarioForm, "Las contraseñas no coinciden"));
       }
       else{
-        List<Usuario> userDB = UsuariosService.findUsuarioLogin(usuario.login);
+        Usuario userDB = UsuariosService.findUsuarioLogin(usuario.login);
         Logger.debug(userDB.toString());
-        if(userDB.size()>0){
+        if(userDB != null){
           Logger.debug("El usuario ya existe en la base de datos");
-          Usuario aux = userDB.get(0);
+          Usuario aux = userDB;
           if(aux.password == null){
             aux.password = usuario.password;
             UsuariosService.modificaUsuario(aux);

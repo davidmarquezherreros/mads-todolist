@@ -58,7 +58,7 @@ public class CrearTareasTest {
       public void crearTarea(){
         jpa.withTransaction(() -> {
           Tarea t = new Tarea("tarea de prueba");
-          Tareas tarea = TareaDAO.create(t);
+          Tarea tarea = TareaDAO.create(t);
           Tarea buscar = TareaDAO.find(tarea.id);
           assertNotNull(buscar);
         });

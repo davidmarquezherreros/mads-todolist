@@ -63,4 +63,16 @@ public class CrearTareasTest {
           assertNotNull(buscar);
         });
       }
+      // Crear una tarea asignandosela a un Usuario
+      @Test
+      public void crearTareaUsuario(){
+        jpa.withTransaction(() ->{
+          Usuario usuario = UsuarioDAO.find(1);
+          Tarea tarea = new Tarea(usuario, "tarea de prueba con usuario");
+          TareaDAO.crearTareaUsuario(tarea);
+          List<Tarea> lista = usuario.tareas;
+          assertEquals(lista.size(),4);
+          assertTrue(lista.contains(tarea));
+        });
+      }
 }

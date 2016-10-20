@@ -23,7 +23,10 @@ public class Tarea {
     public Tarea(String descripcion) {
         this.descripcion = descripcion;
     }
-
+    public Tarea(Usuario u, String desc){
+        this.descripcion = desc;
+        this.usuario = u;
+    }
     public String toString() {
         return String.format("Tarea id: %s descripcion: %s", id, descripcion);
     }
@@ -32,7 +35,9 @@ public class Tarea {
       nueva.id = this.id;
       return nueva;
     }
-
+    public void nulificaAtributos(){
+      if(descripcion != null && descripcion.isEmpty()) descripcion = null;
+    }
     @Override
     public int hashCode() {
         final int prime = 31;

@@ -26,6 +26,8 @@ public class Usuario {
     @Formats.DateTime(pattern="dd-MM-yyyy")
     @Temporal(TemporalType.DATE)
     public Date fechaNacimiento;
+
+
     @OneToMany(mappedBy="usuario")
     public List<Tarea> tareas = new ArrayList<Tarea>();
 

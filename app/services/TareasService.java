@@ -15,4 +15,10 @@ public class TareasService {
             throw new UsuariosException("Usuario no encontrado");
         }
     }
+    public static Tarea grabaTarea(Tarea t){
+      return TareaDAO.create(t);
+    }
+    public static Tarea grabaTareaUsuario(Tarea t){
+      return TareaDAO.createTareaUsuario(t);
+    }
 }

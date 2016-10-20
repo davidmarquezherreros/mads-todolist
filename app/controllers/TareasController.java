@@ -71,4 +71,9 @@ public class TareasController extends Controller {
         }
       }
     }
+    @Transactional
+    public Result borraTarea(Integer idTarea, Integer idUsuario) {
+      TareasService.deleteTarea(idTarea);
+      return redirect(controllers.routes.TareasController.listaTareas(idUsuario));
+    }
 }

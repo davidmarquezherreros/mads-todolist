@@ -39,7 +39,6 @@ public class CrearTareasTest {
           databaseTester = new JndiDatabaseTester("DefaultDS");
           IDataSet initialDataSet = new FlatXmlDataSetBuilder().build(new
           FileInputStream("test/resources/tareas_dataset.xml"));
-          databaseTester.setTearDownOperation(DatabaseOperation.DELETE);
           databaseTester.setDataSet(initialDataSet);
           databaseTester.onSetup();
       }
@@ -54,6 +53,7 @@ public class CrearTareasTest {
           jpa.shutdown();
           db.shutdown();
       }
+      
       @Test
       public void crearTarea(){
         jpa.withTransaction(() -> {
@@ -68,10 +68,10 @@ public class CrearTareasTest {
       public void crearTareaUsuario(){
         jpa.withTransaction(() ->{
           Usuario usuario = UsuarioDAO.find(1);
-          Tarea tarea = new Tarea(usuario, "tarea de prueba con usuario");
-          TareaDAO.crearTareaUsuario(tarea);
+          Tarea tarea = new Tarea(usuario, "TEST 2");
+          TareaDAO.createTareaUsuario(tarea);
           List<Tarea> lista = usuario.tareas;
-          assertEquals(lista.size(),4);
+          assertEquals(4,lista.size());
           assertTrue(lista.contains(tarea));
         });
       }

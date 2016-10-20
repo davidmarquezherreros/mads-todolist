@@ -1,0 +1,44 @@
+@(usuarioId: Integer, tareas: List[Tarea], mensaje: String)
+@scripts = {
+    <script type="text/javascript">
+        function del(urlBorrar) {
+            $.ajax({
+                url: urlBorrar,
+                type: 'DELETE',
+                success: function(results) {
+                    //refresh the page
+                    location.reload();
+                }
+            });
+        }
+    </script>
+}
+@main("Listado de usuarios", scripts) {
+
+    <h2> Lista de tareas </h2>
+    <table class="table table-condensed">
+      <tr>
+        <th>Id</th>
+        <th>Descripcion</th>
+        <th>Accion</th>
+      </tr>
+      @for(tarea <- tareas) {
+          <tr>
+            <td>@tarea.id</td>
+            <td>@tarea.descripcion</td>
+            <td>
+              <a onmouseover="" style="cursor: pointer;" onclick="">
+                          <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>Borrar</a>
+                          <a href=""><span class="glyphicon glyphicon-zoom-in" aria-hidden="true">Detalle</a>
+                          <a href=""><span class="glyphicon glyphicon-pencil" aria-hidden="true">Editar</a>
+            </td>
+          </tr>
+        }
+  </table>
+     <a class="btn btn-primary" href="">Crear un nueva tarea</a></p>
+    @if(mensaje != null) {
+        <div class="alert alert-success">
+            @mensaje
+        </div>
+    }
+}

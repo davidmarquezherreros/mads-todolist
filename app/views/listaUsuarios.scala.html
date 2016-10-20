@@ -34,7 +34,8 @@
               <a onmouseover="" style="cursor: pointer;" onclick="del('@routes.UsuariosController.borraUsuario(usuario.id)')">
                           <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>Borrar</a>
                           <a href="@routes.UsuariosController.detalleUsuario(usuario.id)"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true">Detalle</a>
-                            <a href="@routes.UsuariosController.editaUsuario(usuario.id)"><span class="glyphicon glyphicon-pencil" aria-hidden="true">Editar</a></p>
+                            <a href="@routes.UsuariosController.editaUsuario(usuario.id)"><span class="glyphicon glyphicon-pencil" aria-hidden="true">Editar</a>
+                            <a href="@routes.TareasController.listaTareas(usuario.id)"><span class="glyphicon glyphicon-list" aria-hidden="true"> Ver tareas</p>
             </td>
           </tr>
         }

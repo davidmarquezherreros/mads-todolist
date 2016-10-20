@@ -24,6 +24,7 @@ public class Usuario {
     @Temporal(TemporalType.DATE)
     public Date fechaNacimiento;
 
+
     // Un constructor vacío necesario para JPA
     public Usuario() {}
 

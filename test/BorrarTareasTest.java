@@ -61,4 +61,12 @@ public class BorrarTareasTest {
           assertEquals(2,user.tareas.size());
         });
       }
+      @Test
+      public void deleteTareaServices(){
+        jpa.withTransaction(() -> {
+          Usuario user = UsuarioDAO.find(1);
+          TareasService.deleteTarea(user.tareas.get(0).id);
+          assertEquals(2,user.tareas.size());
+        });
+      }
 }

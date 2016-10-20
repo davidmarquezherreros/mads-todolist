@@ -53,7 +53,7 @@ public class CrearTareasTest {
           jpa.shutdown();
           db.shutdown();
       }
-      
+
       @Test
       public void crearTarea(){
         jpa.withTransaction(() -> {
@@ -73,6 +73,22 @@ public class CrearTareasTest {
           List<Tarea> lista = usuario.tareas;
           assertEquals(4,lista.size());
           assertTrue(lista.contains(tarea));
+        });
+      }
+      @Test
+      public void createTareaService(){
+        jpa.withTransaction(() -> {
+          Tarea t = new Tarea("tarea sin usuario");
+          Tarea tarea = TareasService.grabaTarea(t);
+          assertNotNull(TareaDAO.find(tarea.id));
+        });
+      }
+      @Test
+      public void createTareaUsuarioService(){
+        jpa.withTransaction(() -> {
+          Tarea t = new Tarea(UsuarioDAO.find(1),"tarea sin usuario");
+          Tarea tarea = TareasService.grabaTareaUsuario(t);
+          assertNotNull(TareaDAO.find(tarea.id));
         });
       }
 }

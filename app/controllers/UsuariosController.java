@@ -43,14 +43,21 @@ public class UsuariosController extends Controller {
             return badRequest(formCreacionUsuario.render(usuarioForm, "Hay errores en el formulario"));
         }
         Usuario usuario = usuarioForm.get();
-        Logger.debug("Usuario a grabar: " + usuario.toString());
-        if(UsuariosService.findUsuarioLogin(usuario.login) != null){
-          return ok(formCreacionUsuario.render(formFactory.form(Usuario.class),"Error, el login ya existe"));
-        }else{
+        Usuario user = null;
+        try{
+          user = UsuariosService.findUsuarioLogin(usuario.login);
+        }catch(UsuariosException ex){
+        }
+        if(user != null){
+          return badRequest(formCreacionUsuario.render(usuarioForm, "El login introducido ya existe"));
+        }
+        else{
           usuario = UsuariosService.grabaUsuario(usuario);
+          Logger.debug(usuario.toString());
           flash("grabaUsuario", "El usuario se ha guardado correctamente");
           return redirect(controllers.routes.UsuariosController.listaUsuarios());
         }
+
     }
 
     @Transactional
@@ -100,9 +107,10 @@ public class UsuariosController extends Controller {
 
     @Transactional
     public Result borraUsuario(Integer id) {
+      try{
         UsuariosService.deleteUsuario(id);
-        Logger.debug("Usuario a borrar: "+UsuariosService.findUsuario(id));
-        return redirect(controllers.routes.UsuariosController.listaUsuarios());
+      }catch(UsuariosException ex){}
+      return redirect(controllers.routes.UsuariosController.listaUsuarios());
     }
 
     // Funcionalidades extra

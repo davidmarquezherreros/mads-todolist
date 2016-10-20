@@ -27,4 +27,11 @@ public class TareaDAO {
       Logger.debug(t.toString());
       return t;
     }
+    public static void delete(Integer idTarea) {
+        Tarea tarea = JPA.em().getReference(Tarea.class, idTarea);
+        Logger.debug(tarea.toString());
+        JPA.em().remove(tarea);
+        JPA.em().flush();
+        JPA.em().refresh(tarea.usuario);
+    }
 }

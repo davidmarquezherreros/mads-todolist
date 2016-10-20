@@ -27,8 +27,8 @@
             <td>@tarea.id</td>
             <td>@tarea.descripcion</td>
             <td>
-              <a onmouseover="" style="cursor: pointer;" onclick="">
-                          <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>Borrar</a>
+                          <a onmouseover="" style="cursor: pointer;" onclick="del('@routes.TareasController.borraTarea(tarea.id,usuarioId)')">
+                                      <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>Borrar</a>
                           <a href=""><span class="glyphicon glyphicon-zoom-in" aria-hidden="true">Detalle</a>
                           <a href=""><span class="glyphicon glyphicon-pencil" aria-hidden="true">Editar</a>
             </td>

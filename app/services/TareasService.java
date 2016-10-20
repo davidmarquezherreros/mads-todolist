@@ -21,4 +21,17 @@ public class TareasService {
     public static Tarea grabaTareaUsuario(Tarea t){
       return TareaDAO.createTareaUsuario(t);
     }
+    public static boolean deleteTarea(Integer id){
+      if(TareaDAO.find(id)!=null){
+          TareaDAO.delete(id);
+          if(TareaDAO.find(id)==null){
+             return true;
+          }else{
+            return false;
+          }
+      }
+      else{
+        return false;
+      }
+    }
 }

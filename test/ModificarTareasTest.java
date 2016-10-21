@@ -64,4 +64,14 @@ public class ModificarTareasTest {
           assertTrue(u.tareas.contains(tarea));
         });
       }
+      @Test
+      public void ModificarTareaService(){
+        jpa.withTransaction(() -> {
+          Tarea tarea = TareaDAO.find(1);
+          tarea.descripcion = "Test modificar tarea Services";
+          TareaServices.updateTarea(tarea);
+          Usuario u = UsuarioDAO.find(1);
+          assertTrue(u.tareas.contains(tarea));
+        });
+      }
 }

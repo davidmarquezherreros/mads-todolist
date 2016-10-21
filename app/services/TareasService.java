@@ -37,4 +37,7 @@ public class TareasService {
     public static Tarea findTarea(Integer id){
       return TareaDAO.find(id);
     }
+    public static Tarea updateTarea(Tarea t){
+      return TareaDAO.update(t);
+    }
 }

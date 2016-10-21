@@ -85,4 +85,31 @@ public class TareasController extends Controller {
           return ok(listaTareas.render(usuarioId, TareasService.listaTareasUsuario(usuarioId), "Ups! el identificador especificado no existe"));
         }
     }
+    @Transactional(readOnly = true)
+    public Result editaTarea(Integer idTarea, Integer idUsuario) {
+      if(UsuariosService.findUsuario(idUsuario)!=null && TareasService.findTarea(idTarea)!=null){
+        Form<Tarea> tareaForm = formFactory.form(Tarea.class).bindFromRequest();
+        Logger.debug(tareaForm.toString());
+        Tarea t = new Tarea();
+        t = TareasService.findTarea(idTarea);
+        Form<Tarea> filledForm = tareaForm.fill(t);
+        return ok(formModificacionTarea.render(filledForm,t.usuario.id,""));
+      }
+      else{
+        return badRequest(listaTareas.render(idUsuario, TareasService.listaTareasUsuario(idUsuario),"La tarea con id: "+idTarea.toString()+" no existe!"));
+      }
+    }
+        @Transactional
+    public Result grabaTareaModificada(Integer idUsuario){
+            Form<Tarea> tareaForm = formFactory.form(Tarea.class).bindFromRequest();
+            if (tareaForm.hasErrors()) {
+                return badRequest(formModificacionTarea.render(tareaForm, idUsuario, "Hay errores en el formulario"));
+            }
+            Tarea tarea = tareaForm.get();
+            tarea.usuario = UsuariosService.findUsuario(idUsuario);
+            tarea = TareasService.updateTarea(tarea);
+
+            return redirect(controllers.routes.TareasController.listaTareas(idUsuario));
+    }
+
 }

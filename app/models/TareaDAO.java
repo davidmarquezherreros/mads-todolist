@@ -34,4 +34,10 @@ public class TareaDAO {
         JPA.em().flush();
         JPA.em().refresh(tarea.usuario);
     }
+    public static Tarea update(Tarea tarea){
+      JPA.em().merge(tarea);
+      JPA.em().flush();
+      JPA.em().refresh(tarea.usuario);
+      return tarea;
+    }
 }

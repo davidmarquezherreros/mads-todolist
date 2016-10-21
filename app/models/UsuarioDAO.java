@@ -29,6 +29,12 @@ public class UsuarioDAO {
 
     public static void delete(Integer idUsuario) {
         Usuario usuario = JPA.em().getReference(Usuario.class, idUsuario);
+        List<Tarea> lista = usuario.tareas;
+        if(lista.size()>0){
+          for(int i = 0; i < lista.size(); i++){
+            TareaDAO.delete(lista.get(i).id);
+          }
+        }
         JPA.em().remove(usuario);
     }
 

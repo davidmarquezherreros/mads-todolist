@@ -13,7 +13,7 @@
         }
     </script>
 }
-@main("Listado de usuarios", scripts) {
+@main("Listado de tareas", scripts) {
 
     <h2> Lista de tareas </h2>
     <table class="table table-condensed">
@@ -29,7 +29,7 @@
             <td>
                           <a onmouseover="" style="cursor: pointer;" onclick="del('@routes.TareasController.borraTarea(tarea.id,usuarioId)')">
                                       <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>Borrar</a>
-                          <a href=""><span class="glyphicon glyphicon-zoom-in" aria-hidden="true">Detalle</a>
+                          <a href="@routes.TareasController.detalleTarea(tarea.id,usuarioId)"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true">Detalle</a>
                           <a href=""><span class="glyphicon glyphicon-pencil" aria-hidden="true">Editar</a>
             </td>
           </tr>

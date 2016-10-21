@@ -76,4 +76,13 @@ public class TareasController extends Controller {
       TareasService.deleteTarea(idTarea);
       return redirect(controllers.routes.TareasController.listaTareas(idUsuario));
     }
+    @Transactional
+    public Result detalleTarea(Integer id, Integer usuarioId) {
+        if(TareasService.findTarea(id)!=null){
+          return ok(DetalleTarea.render(TareasService.findTarea(id)));
+        }
+        else{
+          return ok(listaTareas.render(usuarioId, TareasService.listaTareasUsuario(usuarioId), "Ups! el identificador especificado no existe"));
+        }
+    }
 }

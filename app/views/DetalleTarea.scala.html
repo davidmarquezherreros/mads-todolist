@@ -1,0 +1,9 @@
+@(tarea: Tarea)
+
+@main("Detalle Tarea"){
+  <h1><em>Detalle de la tarea @tarea.id</em></h1>
+  <hr/>
+  <h3><strong>Descripcion: </strong><em>@tarea.descripcion</em></h1>
+
+  <a class="btn btn-primary" href="@routes.TareasController.listaTareas(tarea.usuario.id)">Volver</a> <a class="btn btn-primary" href="">Editar</a></p>
+}

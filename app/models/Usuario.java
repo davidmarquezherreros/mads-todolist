@@ -28,7 +28,7 @@ public class Usuario {
     public Date fechaNacimiento;
 
 
-    @OneToMany(mappedBy="usuario")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="usuario")
     public List<Tarea> tareas = new ArrayList<Tarea>();
 
     // Un constructor vacío necesario para JPA

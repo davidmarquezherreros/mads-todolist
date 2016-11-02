@@ -1,5 +1,5 @@
 # **mads-todolist**
-[![Build Status](https://travis-ci.com/davidmarquezherreros/mads-todolist.svg?token=8VgWbDEwiWssrscs35qW&branch=tic-29-integracion-travis)](https://travis-ci.com/davidmarquezherreros/mads-todolist)
+[![Build Status](https://travis-ci.com/davidmarquezherreros/mads-todolist.svg?token=8VgWbDEwiWssrscs35qW&branch=master)](https://travis-ci.com/davidmarquezherreros/mads-todolist)
 
 
 ### **DOCUMENTACIÓN DE USUARIO**

@@ -39,6 +39,8 @@ public class BorrarTareasTest {
           databaseTester = new JndiDatabaseTester("DefaultDS");
           IDataSet initialDataSet = new FlatXmlDataSetBuilder().build(new
           FileInputStream("test/resources/tareas_dataset.xml"));
+          databaseTester.setTearDownOperation(DatabaseOperation.DELETE_ALL);
+          databaseTester.setSetUpOperation(DatabaseOperation.CLEAN_INSERT);
           databaseTester.setDataSet(initialDataSet);
           databaseTester.onSetup();
       }
@@ -65,8 +67,10 @@ public class BorrarTareasTest {
       public void deleteTareaServices(){
         jpa.withTransaction(() -> {
           Usuario user = UsuarioDAO.find(1);
-          TareasService.deleteTarea(user.tareas.get(0).id);
-          assertEquals(2,user.tareas.size());
+          Tarea tarea = new Tarea(user, "Prueba delete services");
+          Tarea t = TareaDAO.createTareaUsuario(tarea);
+          TareasService.deleteTarea(t.id);
+          assertEquals(3,user.tareas.size());
         });
       }
 }

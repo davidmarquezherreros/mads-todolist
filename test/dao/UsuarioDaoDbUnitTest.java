@@ -45,7 +45,7 @@ public class UsuarioDaoDbUnitTest {
         // borren todos los datos de las tablas del dataset
         // (el valor por defecto DbUnit es DatabaseOperation.NONE)
         databaseTester.setTearDownOperation(DatabaseOperation.DELETE_ALL);
-
+        
         // Definimos como operación SetUp CLEAN_INSERT, que hace un
         // DELETE_ALL de todas las tablase del dataset, seguido por un
         // INSERT. (http://dbunit.sourceforge.net/components.html)

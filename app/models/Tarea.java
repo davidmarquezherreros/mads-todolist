@@ -12,7 +12,7 @@ public class Tarea {
     public Integer id;
     @Constraints.Required
     public String descripcion;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name="usuarioId")
     public Usuario usuario;
 
